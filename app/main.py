@@ -1,5 +1,6 @@
 import asyncio
 import time
+from typing import Any, Awaitable
 
 from iot.devices import HueLightDevice, SmartSpeakerDevice, SmartToiletDevice
 from iot.message import Message, MessageType
@@ -25,7 +26,10 @@ async def main() -> None:
     wake_up_program = [
         Message(hue_light_id, MessageType.SWITCH_ON),
         Message(speaker_id, MessageType.SWITCH_ON),
-        Message(speaker_id, MessageType.PLAY_SONG, "Rick Astley - Never Gonna Give You Up"),
+        Message(speaker_id,
+                MessageType.PLAY_SONG,
+                "Rick Astley - Never Gonna Give You Up"
+                ),
     ]
 
     sleep_program = [
@@ -44,9 +48,6 @@ async def main() -> None:
         service.run_program(wake_up_program),
         service.run_program(sleep_program)
     )
-
-
-from typing import Any, Awaitable
 
 
 async def run_sequence(*functions: Awaitable[Any]) -> None:
